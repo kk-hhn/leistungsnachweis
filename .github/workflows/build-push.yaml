@@ -40,6 +40,7 @@ jobs:
       - name: build gradle using shadowJar
         run: |
           ./gradlew clean shadowJar
+          sleep 5
       - name: run App
         run: |
           output=$(java -jar build/libs/*.jar)
@@ -50,3 +51,4 @@ jobs:
             echo "Status code NOT OK"
             exit 1
           fi
+          sleep 5
