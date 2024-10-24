@@ -1,6 +1,6 @@
 version: '3'
 services:
-#to-do: 2 services, die einzeln den localhost mit mrksdh image versorgen und die errechneten werte in v1/results pushen
+#to-do: 2 services, die den localhost mit mrksdh image versorgen und die errechneten werte in v1/results pushen
   assessment:
     image: 'mrksdh/assessment'
     container_name: container1
