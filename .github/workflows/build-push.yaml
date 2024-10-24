@@ -1,0 +1,37 @@
+name: build-psuh
+
+jobs:
+  test_app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          java:version: '21'
+      - name: Pull Docker image
+        run: docker pull mrksdh/assessment
+      - name: curl install
+        run: |
+          sudo apt-get update
+          && sudo apt-get install -y curl
+      - name: start docker container 1
+        run: |
+          docker run -d --name assessment --network ownNetwork -p 8080:8080 mrksdh/assessment
+          sleep 10
+      - name: build gradle using shadowJar
+        run: |
+          ./gradlew clean shadowJar
+      - name: run App
+        run: |
+          output=$(java -jar build/libs/*.jar)
+          statusCode=$(echo "$output" | awk -F'"code":' '{print $2}' | awk '{print $1}')
+          echo "STATUS_CODE=$statusCode" >> $GITHUB_ENV
+          
+          if ["$statusCode" != "200"]; then
+            echo "Status code NOT OK"
+            exit 1
+          fi

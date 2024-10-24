@@ -1,0 +1,22 @@
+version: '3'
+services:
+#to-do: 2 services, die einzeln den localhost mit mrksdh image versorgen und die errechneten werte in v1/results pushen
+  assessment:
+    image: 'mrksdh/assessment'
+    container_name: container1
+    ports:
+      - "8080:8080"
+    networks:
+      - ownNetwork
+
+
+  controller:
+    build: .
+    container_name: controller
+    depends_on:
+      - assessment
+    network_mode: service:assessment
+
+networks:
+  ownNetwork:
+    internal: true
