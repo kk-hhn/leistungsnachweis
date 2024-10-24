@@ -44,6 +44,7 @@ jobs:
       - name: run App
         run: |
           output=$(java -jar build/libs/*.jar)
+          echo "$output"
           statusCode=$(echo "$output" | awk -F'"code":' '{print $2}' | awk '{print $1}')
           echo "STATUS_CODE=$statusCode" >> $GITHUB_ENV
           
