@@ -16,7 +16,7 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
-          java:version: '21'
+          java-version: '21'
       - name: Pull Docker image
         run: docker pull mrksdh/assessment
       - name: curl install
