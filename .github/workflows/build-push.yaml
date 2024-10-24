@@ -31,6 +31,9 @@ jobs:
         run: |
           docker run -d --name assessment --network ownNetwork -p 8080:8080 mrksdh/assessment
           sleep 10
+
+      - name: permission for gradlew
+        run: chmod +x ./gradlew
       - name: build gradle using shadowJar
         run: |
           ./gradlew clean shadowJar
