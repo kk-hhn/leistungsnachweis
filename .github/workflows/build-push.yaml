@@ -23,6 +23,10 @@ jobs:
       - name: curl install
         run: |
           sudo apt-get update && sudo apt-get install -y curl
+
+      - name: create network
+        run: |
+          docker network create ownNetwork
       - name: start docker container 1
         run: |
           docker run -d --name assessment --network ownNetwork -p 8080:8080 mrksdh/assessment
